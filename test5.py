@@ -18,3 +18,11 @@ for q in message:
         messagelist.append(list2[index]);
 print(message);
 print(messagelist);
+
+string = "";
+
+for w in messagelist:
+    if w in list2:
+        index2 = list2.index(w)
+        string += list[index2];
+print(string);
