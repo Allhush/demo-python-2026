@@ -6,6 +6,22 @@ rotors = [[10,16,21,18,6,12,25,3,14,24,5,9,22,17,15,0,1,20,26,4,19,11,2,23,13,8,
 encoder_rotors = [];
 #ensures the same rotor isn't picked twice
 checker = [];
+#selects what row of the rotor is being used
+row = 0;
+#refers to the singular rotor the encoder is on, but using rotor would be confusing
+column = 0;
+#will hold the message once it is encoded
+secret_message = [];
+#temporary placeholder for a message
+message = "hello world";
+#stores message as a number
+message_numbers = [];
+#holds alphabet and symbols stored as numbers
+encoder = [];
+#holds alphabet and symbols used in message
+alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "];
+#holds the value of the new letter once it is encoded before it is appended to the list secret message
+transfer_number = 0
 
 #checks length of the picked rotors to see if it has met the required number
 while len(encoder_rotors) < 3:
@@ -17,16 +33,8 @@ while len(encoder_rotors) < 3:
         checker.append(picked_rotor);
 
 #debug vestigial code
-#print(str(encoder_rotors[0][0]) + " " + str(encoder_rotors[1][0]) + " " + str(encoder_rotors[2][0]));
+print(str(encoder_rotors[0][0]) + " " + str(encoder_rotors[1][0]) + " " + str(encoder_rotors[2][0]));
 
-#temporary placeholder for a message
-message = "hello world";
-#stores message as a number
-message_numbers = [];
-#holds alphabet and symbols stored as numbers
-encoder = [];
-#holds alphabet and symbols used in message
-alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "];
 
 #assigns a number to each letter of the alphabet and other symbols and characters that will be used in the secret message
 for i in range(0, len(alphabet)):
@@ -41,6 +49,19 @@ for i in range(0, len(message)):
         index = alphabet.index(message[i]);
         #appends the numeric value of the symbol to the list which stores the numeric message
         message_numbers.append(encoder[index]);
-print(message);
+#print(message);
 print(message_numbers);
 
+
+for j in range(0, len(message_numbers)):
+    transfer_number = message_numbers[j]+encoder_rotors[0][encoder_rotors[1][encoder_rotors[2][encoder_rotors[2][encoder_rotors[1][encoder_rotors[0][row]]]]]]
+    if transfer_number > len(encoder):
+        transfer_number -= 27
+    secret_message.append(transfer_number)
+    row += 1
+    if row > len(encoder_rotors[0])-1:
+        row = 0
+        column += 1
+    if column > len(encoder_rotors)-1:
+        column = 0;
+print(secret_message);
