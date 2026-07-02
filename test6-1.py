@@ -13,13 +13,13 @@ column = 0;
 #will hold the message once it is encoded
 secret_message = [];
 #temporary placeholder for a message
-message = "hello world";
+message = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
 #stores message as a number
 message_numbers = [];
 #holds alphabet and symbols stored as numbers
 encoder = [];
 #holds alphabet and symbols used in message
-alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " "];
+alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "."];
 #holds the value of the new letter once it is encoded before it is appended to the list secret message
 transfer_number = 0
 
@@ -49,13 +49,13 @@ for i in range(0, len(message)):
         index = alphabet.index(message[i]);
         #appends the numeric value of the symbol to the list which stores the numeric message
         message_numbers.append(encoder[index]);
-#print(message);
+print(message);
 print(message_numbers);
 
 
 for j in range(0, len(message_numbers)):
     #changes the letter based on the row and column starting point runs through the rotors starting from rotor 0 to rotor 1 to rotor 2 to rotor 2 again then rotor 1 and finally spits out a value from rotor 0
-    transfer_number = message_numbers[j] + encoder_rotors[0][encoder_rotors[1][encoder_rotors[2][encoder_rotors[2][encoder_rotors[1][encoder_rotors[0][row]]]]]]
+    transfer_number = message_numbers[j] + encoder_rotors[column][encoder_rotors[1][encoder_rotors[2][encoder_rotors[2][encoder_rotors[1][encoder_rotors[0][row]]]]]]
     #checks if transfer number is outside availible symbols
     if transfer_number > len(encoder):
         #if transfer number is outside availible symbols it corrects it
@@ -74,3 +74,11 @@ for j in range(0, len(message_numbers)):
         # resets the column number if we go past it
         column = 0;
 print(secret_message);
+
+string = ""
+
+for k in secret_message:
+    if k in encoder:
+        index_decode = encoder.index(k)
+    string += alphabet[index_decode];
+print(string)
