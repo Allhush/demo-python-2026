@@ -6,20 +6,22 @@ rotors = [[10,16,21,18,6,12,25,3,14,24,5,9,22,17,15,0,1,20,26,4,19,11,2,23,13,8,
 encoder_rotors = [];
 #ensures the same rotor isn't picked twice
 checker = [];
-#selects what row of the rotor is being used
-row = 0;
+#makes sure the rotor completes a full cycle before moving on
+row_counter = 0;
 #refers to the singular rotor the encoder is on, but using rotor would be confusing
 column = 0;
 #will hold the message once it is encoded
 secret_message = [];
 #temporary placeholder for a message
-message = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
+message = "alliam";
 #stores message as a number
 message_numbers = [];
 #holds alphabet and symbols stored as numbers
 encoder = [];
 #holds alphabet and symbols used in message
 alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "."];
+#selects what row of the rotor is being used
+row = random.randint(0,len(alphabet)-1);
 #holds the value of the new letter once it is encoded before it is appended to the list secret message
 transfer_number = 0
 
@@ -52,22 +54,30 @@ for i in range(0, len(message)):
 print(message);
 print(message_numbers);
 
-
+#debug code
+#print(len(encoder_rotors[0])-1)
+#print(row)
 for j in range(0, len(message_numbers)):
     #changes the letter based on the row and column starting point runs through the rotors starting from rotor 0 to rotor 1 to rotor 2 to rotor 2 again then rotor 1 and finally spits out a value from rotor 0
     transfer_number = message_numbers[j] + encoder_rotors[column][encoder_rotors[1][encoder_rotors[2][encoder_rotors[2][encoder_rotors[1][encoder_rotors[0][row]]]]]]
     #checks if transfer number is outside availible symbols
-    if transfer_number > len(encoder):
+    if transfer_number > len(encoder)-1:
         #if transfer number is outside availible symbols it corrects it
-        transfer_number -= len(encoder)
+        transfer_number -= len(encoder)-1
     #adds letter to the secret number
     secret_message.append(transfer_number)
     #increases what row we are on
     row += 1
+    #increases so that we know when we have done a full cycle of the current row
+    row_counter += 1
     #checks to make sure we are still on an availble row
     if row > len(encoder_rotors[0])-1:
         #resets row we are on if we are not on an availible row
         row = 0
+    #checks to see if we should move onto the next row
+    if row_counter > len(encoder_rotors[0])-1:
+        #resets time spent so we can do full rotation on this row
+        row_counter = 0
         #increases column number once we reset the row number
         column += 1
     if column > len(encoder_rotors)-1:
