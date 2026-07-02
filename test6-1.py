@@ -33,9 +33,14 @@ for i in range(0, len(alphabet)):
     encoder.append(i);
 #print(encoder);
 
+#uses the length of the message to cycle though it and recreate it as a list of numbers
 for i in range(0, len(message)):
+    #checks the message at point i to see if that symbol is valid
     if message[i] in alphabet:
+        #matches the symbol to its numeric value
         index = alphabet.index(message[i]);
+        #appends the numeric value of the symbol to the list which stores the numeric message
         message_numbers.append(encoder[index]);
 print(message);
 print(message_numbers);
+
