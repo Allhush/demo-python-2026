@@ -54,14 +54,23 @@ print(message_numbers);
 
 
 for j in range(0, len(message_numbers)):
-    transfer_number = message_numbers[j]+encoder_rotors[0][encoder_rotors[1][encoder_rotors[2][encoder_rotors[2][encoder_rotors[1][encoder_rotors[0][row]]]]]]
+    #changes the letter based on the row and column starting point runs through the rotors starting from rotor 0 to rotor 1 to rotor 2 to rotor 2 again then rotor 1 and finally spits out a value from rotor 0
+    transfer_number = message_numbers[j] + encoder_rotors[0][encoder_rotors[1][encoder_rotors[2][encoder_rotors[2][encoder_rotors[1][encoder_rotors[0][row]]]]]]
+    #checks if transfer number is outside availible symbols
     if transfer_number > len(encoder):
-        transfer_number -= 27
+        #if transfer number is outside availible symbols it corrects it
+        transfer_number -= len(encoder)
+    #adds letter to the secret number
     secret_message.append(transfer_number)
+    #increases what row we are on
     row += 1
+    #checks to make sure we are still on an availble row
     if row > len(encoder_rotors[0])-1:
+        #resets row we are on if we are not on an availible row
         row = 0
+        #increases column number once we reset the row number
         column += 1
     if column > len(encoder_rotors)-1:
+        # resets the column number if we go past it
         column = 0;
 print(secret_message);
