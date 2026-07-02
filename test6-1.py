@@ -13,7 +13,7 @@ column = 0;
 #will hold the message once it is encoded
 secret_message = [];
 #temporary placeholder for a message
-message = "alliam";
+message = "test test test";
 #stores message as a number
 message_numbers = [];
 #holds alphabet and symbols stored as numbers
