@@ -2,11 +2,11 @@ import random
 import math
 
 #wheel with offset values for the numbers
-wheel = [[1,2,3,4,5],[2,3,4,5,1],[3,4,5,1,2],[4,5,1,2,3],[5,1,2,3,4]]
+wheel = [[1,2,3,4,25],[12,13,4,5,21],[3,14,23,1,2],[4,15,10,18,3],[22,15,19,11,4],[12,21,2,4,7]]
 
 # ensures that the row of the wheel starts at a random position, but always ensure it starts on the first column
 row = random.randint(0,4);
-column = 0
+column = random.randint(0,5);
 
 encoder = [];
 
@@ -17,7 +17,9 @@ for i in range(0, len(alphabet)):
     encoder.append(i);
 #print(encoder);
 
-secret_message = "wobble wobble";
+secret_message = "hello world";
+
+cypher = "cypher";
 
 numbered_secret_message = [];
 
@@ -29,7 +31,7 @@ for i in range(0, len(secret_message)):
         numbered_secret_message.append(encoder[index]);
 
 #prints original numbers to see difference, vestigial code
-print(numbered_secret_message);
+#print(numbered_secret_message);
 
 #checks length of the secret message so that the function can cycle through it properly
 for j in range(0, len(numbered_secret_message)):
@@ -46,9 +48,9 @@ for j in range(0, len(numbered_secret_message)):
     #changes which column is in use
     column += 1
     #ensure we never exceed column bounds
-    if column == 5:
+    if column == 6:
         column = 0;
-print(numbered_secret_message);
+#print(numbered_secret_message);
 
 string = "";
 
@@ -57,3 +59,5 @@ for w in numbered_secret_message:
         index2 = encoder.index(w)
         string += alphabet[index2];
 print(string);
+print(row);
+print(column);
