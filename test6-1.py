@@ -20,8 +20,6 @@ message_numbers = [];
 encoder = [];
 #holds alphabet and symbols used in message
 alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", " ", "."];
-#selects what row of the rotor is being used
-row = random.randint(0,len(alphabet)-1);
 #holds the value of the new letter once it is encoded before it is appended to the list secret message
 transfer_number = 0
 
@@ -34,6 +32,8 @@ while len(encoder_rotors) < 3:
         encoder_rotors.append(rotors[picked_rotor])
         checker.append(picked_rotor);
 
+#selects what row of the rotor is being used
+row = random.randint(0,len(encoder_rotors[0])-1);
 #debug vestigial code
 print(str(encoder_rotors[0][0]) + " " + str(encoder_rotors[1][0]) + " " + str(encoder_rotors[2][0]));
 
@@ -55,7 +55,7 @@ print(message);
 print(message_numbers);
 
 #debug code
-#print(len(encoder_rotors[0])-1)
+#print(len(encoder_rotors[0]))
 #print(row)
 for j in range(0, len(message_numbers)):
     #changes the letter based on the row and column starting point runs through the rotors starting from rotor 0 to rotor 1 to rotor 2 to rotor 2 again then rotor 1 and finally spits out a value from rotor 0
@@ -85,10 +85,10 @@ for j in range(0, len(message_numbers)):
         column = 0;
 print(secret_message);
 
-string = ""
-
-for k in secret_message:
-    if k in encoder:
-        index_decode = encoder.index(k)
-    string += alphabet[index_decode];
-print(string)
+#all of this is debug stuff
+#string = ""
+#for k in secret_message:
+#    if k in encoder:
+#        index_decode = encoder.index(k)
+#    string += alphabet[index_decode];
+#print(string)
