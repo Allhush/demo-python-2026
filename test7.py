@@ -36,3 +36,5 @@ for i in message_list:
 #debug code meant to see what is getting transfered to the message
 print(number_list);
 
+#was going to try to use classes but I can't remeber how to use them
+#fuck it I will just hard code this shit and then turn it into a class later
