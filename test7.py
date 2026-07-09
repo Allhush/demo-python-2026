@@ -22,6 +22,9 @@ message_list = []
 #will be the same as message list however the letters will be instead held as numbers
 number_list = []
 
+#will store which rotors are being used
+rotors_used = []
+
 #will just cycle through the message and append each letter to the list
 for i in message:
     message_list.append(i);
@@ -38,3 +41,5 @@ print(number_list);
 
 #was going to try to use classes but I can't remeber how to use them
 #fuck it I will just hard code this shit and then turn it into a class later
+
+rotors_used = [rotor1, rotor2, rotor3, rotor4]
