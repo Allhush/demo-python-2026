@@ -14,7 +14,13 @@ rotor6 = [[9, 15, 6, 21, 14, 20, 12, 5, 24, 16, 1, 4, 13, 7, 25, 17, 3, 10, 0, 1
 rotor7 = [[13, 25, 9, 7, 6, 17, 2, 23, 12, 24, 18, 22, 1, 14, 20, 5, 0, 8, 21, 11, 15, 4, 10, 16, 3, 19],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]]
 rotor8 = [[5, 10, 16, 7, 19, 11, 23, 14, 2, 1, 9, 18, 15, 3, 25, 17, 0, 12, 4, 22, 13, 8, 20, 24, 6, 21],[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25]]
 
-
+#class
+class Encryptor:
+    def __init__ (self, rotor, current_value):
+        '''rotor will be the current rotor being used to encrypt the letter and change it's value, 
+        current value will be the letter currently being encrypted'''
+        self.rotor = rotor
+        self.letter = current_value
 
 message = "shush"
 
@@ -32,14 +38,14 @@ for i in message:
     message_list.append(i);
 
 #vestigial debug code
-print(message_list);
+#print(message_list);
 
 #looks at the message list to see if it is a valid letter and then appends it as a number to number_list
 for i in message_list:
     if i in alphabet_no_symbol:
         number_list.append(alphabet_no_symbol.index(i));
 #debug code meant to see what is getting transfered to the message
-print(number_list);
+#print(number_list);
 
 #was going to try to use classes but I can't remeber how to use them
 #fuck it I will just hard code this shit and then turn it into a class later
@@ -48,8 +54,14 @@ print(number_list);
 
 rotors_used = [rotor1, rotor2, rotor3, rotor4]
 
-for i in number_list:
-    z = keypressed.index(i);
+#seeing if I can actually put values into this class and then get outputs
+test = Encryptor(rotors_used[0],number_list[0])
+print(test.rotor)
+print(test.letter)
+
+#not in use right now, will come back to it later once I get the class working
+#for i in number_list:
+#    z = keypressed.index(i);
 
 
     
