@@ -22,7 +22,11 @@ class Encryptor:
         self.rotor = rotor
         self.letter = current_value
 
-message = "shush"
+    def encrypt(self):
+        placeholder = self.rotor[0][self.letter]
+        return self.rotor[1].index(placeholder)
+
+message = "testing"
 
 #will hold the message as a list, intended to remember where spaces and other punctuation is so that it can be added back later
 message_list = []
@@ -56,8 +60,8 @@ rotors_used = [rotor1, rotor2, rotor3, rotor4]
 
 #seeing if I can actually put values into this class and then get outputs
 test = Encryptor(rotors_used[0],number_list[0])
-print(test.rotor)
-print(test.letter)
+print(test.encrypt())
+print(number_list[0])
 
 #not in use right now, will come back to it later once I get the class working
 #for i in number_list:
