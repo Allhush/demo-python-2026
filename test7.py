@@ -71,7 +71,7 @@ z = first_set.encrypt()
 #prints value so that I can double check
 print(z)
 #passes new values into second set of rotors so that it can be encrypted again same as before
-second_set = Encryptor(rotors_used[1], z)
+second_set = Encryptor(rotors_used[1], rotors_used[0][1].index(z))
 #does encryption again
 q = second_set.encrypt()
 #lets me triple check that everything is working as it should
