@@ -23,6 +23,8 @@ class Encryptor:
         self.letter = current_value
 
     def encrypt(self):
+        '''this uses the two values above, using the numberic value assigned to the letter it finds the corresponding letter on the rotor based on height
+        then it indees through the second list to find that letter again so it can pass on the new height on the rotor'''
         placeholder = self.rotor[0][self.letter]
         return self.rotor[1].index(placeholder)
 
@@ -59,9 +61,21 @@ for i in message_list:
 rotors_used = [rotor1, rotor2, rotor3, rotor4]
 
 #seeing if I can actually put values into this class and then get outputs
-test = Encryptor(rotors_used[0],number_list[0])
-print(test.encrypt())
+
+#tells me what letter is currently in use so that I can manually index through and double check, yes it is painfully slow and boring
 print(number_list[0])
+#passes values into the first rotor so that the functions can be executed
+first_set = Encryptor(rotors_used[0],number_list[0])
+#uses encryption as explained above
+z = first_set.encrypt()
+#prints value so that I can double check
+print(z)
+#passes new values into second set of rotors so that it can be encrypted again same as before
+second_set = Encryptor(rotors_used[1], z)
+#does encryption again
+q = second_set.encrypt()
+#lets me triple check that everything is working as it should
+print(q)
 
 #not in use right now, will come back to it later once I get the class working
 #for i in number_list:
