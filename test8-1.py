@@ -79,11 +79,9 @@ class Rotor:
         self.right.append(right)
     def rotate_to(self, letter):
         '''letter is a string of the letter the user wants to rotate to'''
-        while not self.left[0] == letter:
-            left = self.left.pop(0)
-            self.left.append(left)
-            right = self.right.pop(0)
-            self.right.append(right)
+        pos_rotate = self.left.index(letter)
+        self.left = self.left[pos_rotate:] + self.left[:pos_rotate]
+        self.right = self.right[pos_rotate:] + self.right[:pos_rotate]
 
 
 class Reflection:
