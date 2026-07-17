@@ -5,7 +5,6 @@ the rest of the code was done on my own however I did attempt to maintain a simi
 rotor_one = ["ekmflgdqvzntowyhxuspaibrcj", "q"] 
 rotor_two = ["ajdksiruxblhwtmcqgznpyfvoe", "e"]
 rotor_three = ["bdfhjlcprtxvznyeiwgakmusqo", "v"]
-#rotor_thre = ["abcdefghijklmnopqrstuvwxyz", "v"]
 rotor_four = ["esovpzjayquirhxlnftgkdcmwb", "j"]
 rotor_five = ["vzbrgityupsdnhlxawmjqofeck", "z"]
 #rotor_six = ["jpgvoumfyqbenhzrdkasxlictw", "z", "m"]
