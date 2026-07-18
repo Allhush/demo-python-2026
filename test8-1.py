@@ -135,39 +135,39 @@ class Encryption:
         code = self.kp.backward(code)
         return code
 
-    def encode_4_rotor(self, letter):
-        if self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
-            self.r1.rotate()
-            self.r2.rotate()
-            self.r3.rotate()
-            self.r4.rotate()
-
-        elif self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
-            self.r2.rotate()
-            self.r3.rotate()
-            self.r4.rotate()
-
-        elif self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch:
-            self.r3.rotate()
-            self.r4.rotate()
-
-        else:
-            self.r4.rotate()
-
-        code = self.kp.forward(letter)
-        code = self.pb.forward(code)
-        code = self.r4.forward(code)
-        code = self.r3.forward(code)
-        code = self.r2.forward(code)
-        code = self.r1.forward(code)
-        code = self.rm.forward(code)
-        code = self.r1.backward(code)
-        code = self.r2.backward(code)
-        code = self.r3.backward(code)
-        code = self.r4.backward(code)
-        code = self.pb.backward(code)
-        code = self.kp.backward(code)
-        return code
+#    def encode_4_rotor(self, letter):
+#        if self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
+#            self.r1.rotate()
+#            self.r2.rotate()
+#            self.r3.rotate()
+#            self.r4.rotate()
+#
+#        elif self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
+#            self.r2.rotate()
+#            self.r3.rotate()
+#            self.r4.rotate()
+#
+#        elif self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch:
+#            self.r3.rotate()
+#            self.r4.rotate()
+#
+#        else:
+#            self.r4.rotate()
+#
+#        code = self.kp.forward(letter)
+#        code = self.pb.forward(code)
+#        code = self.r4.forward(code)
+#        code = self.r3.forward(code)
+#        code = self.r2.forward(code)
+#        code = self.r1.forward(code)
+#        code = self.rm.forward(code)
+#        code = self.r1.backward(code)
+#        code = self.r2.backward(code)
+#        code = self.r3.backward(code)
+#        code = self.r4.backward(code)
+#        code = self.pb.backward(code)
+#        code = self.kp.backward(code)
+#        return code
 
 I = Rotor(rotor_I[0], rotor_I[1])
 II = Rotor(rotor_II[0], rotor_II[1])
@@ -184,22 +184,4 @@ prayer = Encryption(I, II, III, IV, plugs, keys_pressed, A)
 
 message = "enigma is a sophisticated german code system used in world war two"
 new_message = []
-new_message_2 = []
 
-for i in message:
-    if i == " " or i == "." or i == ",":
-        new_message.append(i)
-        new_message_2.append(i)
-    else:
-        q = prayer.encode_4_rotor(i)
-        z = prayer.encode_3_rotor(i)
-        new_message.append(q)
-        new_message_2.append(z)
-new_string = "" 
-new_string_2 = ""
-for i in new_message:
-    new_string = new_string + i
-print(new_string)
-for i in new_message_2:
-    new_string_2 = new_string_2 + i
-print(new_string_2)
