@@ -23,6 +23,7 @@ class InAndOut:
     '''forward transorms a letter input from a letter into a number so that it can be passed onto the next function 
     backwards takes a number and transforms it into a letter so that it can be output legibily'''
     def forward(self, letter):
+        letter = letter.lower()
         signal = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'].index(letter)
         return signal
     def backward(self, signal):
@@ -101,15 +102,22 @@ class Reflection:
 
 
 class Encryption:
-    def __init__ (self, rotor1, rotor2, rotor3, plugs, keys, reflect):
+    def __init__ (self, rotor1, rotor2, rotor3, rotor4, plugs, keys, reflect):
         self.r1 = rotor1
         self.r2 = rotor2
         self.r3 = rotor3
+        self.r4 = rotor4
         self.pb = plugs
         self.kp = keys
         self.rm = reflect
 
     def encode(self, letter):
+#        if self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
+#            self.r1.rotate()
+#            self.r2.rotate()
+#            self.r3.rotate()
+#            self.r4.rotate()
+#        el
         if self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
             self.r1.rotate()
             self.r2.rotate()
@@ -141,9 +149,21 @@ V = Rotor(rotor_V[0], rotor_V[1])
 A = Reflection(reflector_A)
 B = Reflection(reflector_B)
 C = Reflection(reflector_C)
-plugs = Plugboard(["ar", "gk", "ox"])
+plugs = Plugboard(["fq", "ih", "tz"])
 keys_pressed = InAndOut()
 
-prayer = Encryption(I, II, III, plugs, keys_pressed, A)
+prayer = Encryption(I, II, III, IV, plugs, keys_pressed, A)
 
-print(prayer.encode("a"))
+message = "Hn fwnx ja eueehyv"
+new_message = []
+
+for i in message:
+    if i == " " or i == "." or i == ",":
+        new_message.append(i)
+    else:
+        q = prayer.encode(i)
+        new_message.append(q)
+new_string = "" 
+for i in new_message:
+    new_string = new_string + i
+print(new_string)
