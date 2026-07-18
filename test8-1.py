@@ -112,24 +112,27 @@ class Encryption:
         self.rm = reflect
 
     def encode(self, letter):
-#        if self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
-#            self.r1.rotate()
-#            self.r2.rotate()
-#            self.r3.rotate()
-#            self.r4.rotate()
-#        el
-        if self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
+        if self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
             self.r1.rotate()
             self.r2.rotate()
             self.r3.rotate()
-        elif self.r3.left[0] == self.r3.notch:
-            self.r3.rotate()
+            self.r4.rotate()
+
+        elif self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
             self.r2.rotate()
-        else:
             self.r3.rotate()
+            self.r4.rotate()
+
+        elif self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch:
+            self.r3.rotate()
+            self.r4.rotate()
+
+        else:
+            self.r4.rotate()
 
         code = self.kp.forward(letter)
         code = self.pb.forward(code)
+        code = self.r4.forward(code)
         code = self.r3.forward(code)
         code = self.r2.forward(code)
         code = self.r1.forward(code)
@@ -137,6 +140,7 @@ class Encryption:
         code = self.r1.backward(code)
         code = self.r2.backward(code)
         code = self.r3.backward(code)
+        code = self.r4.backward(code)
         code = self.pb.backward(code)
         code = self.kp.backward(code)
         return code
@@ -154,7 +158,7 @@ keys_pressed = InAndOut()
 
 prayer = Encryption(I, II, III, IV, plugs, keys_pressed, A)
 
-message = "Hn fwnx ja eueehyv"
+message = "coyay cd jbei nq nrrbwxm"
 new_message = []
 
 for i in message:
