@@ -61,13 +61,15 @@ class Plugboard:
 
 class Rotor:
     def __init__(self, encoding, turnover):
+        '''encoding is a list of all of the characters in the alphabet which have had their order re arraged
+        turnover is what character causes the subsequent rotor on the wheel to rotate'''
         self.right = encoding
         self.left = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
         self.notch = turnover
     def forward(self, signal):
         letter = self.right[signal]
         signal = self.left.index(letter)
-        return signal
+        return signal 
     def backward(self, signal):
         letter = self.left[signal]
         signal = self.right.index(letter)
@@ -92,9 +94,56 @@ class Reflection:
         letter = self.right[signal]
         signal = self.left.index(letter)
         return signal
+    def backward(self, signal):
+        letter = self.left[signal]
+        signal = self.right.index(letter)
+        return signal
 
 
-q = Rotor(rotor_I[0], rotor_I[1])
-q.rotate_to("q")
-print(q.left)
-print(q.right)
+class Encryption:
+    def __init__ (self, rotor1, rotor2, rotor3, plugs, keys, reflect):
+        self.r1 = rotor1
+        self.r2 = rotor2
+        self.r3 = rotor3
+        self.pb = plugs
+        self.kp = keys
+        self.rm = reflect
+
+    def encode(self, letter):
+        if self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
+            self.r1.rotate()
+            self.r2.rotate()
+            self.r3.rotate()
+        elif self.r3.left[0] == self.r3.notch:
+            self.r3.rotate()
+            self.r2.rotate()
+        else:
+            self.r3.rotate()
+
+        code = self.kp.forward(letter)
+        code = self.pb.forward(code)
+        code = self.r3.forward(code)
+        code = self.r2.forward(code)
+        code = self.r1.forward(code)
+        code = self.rm.forward(code)
+        code = self.r1.backward(code)
+        code = self.r2.backward(code)
+        code = self.r3.backward(code)
+        code = self.pb.backward(code)
+        code = self.kp.backward(code)
+        return code
+
+I = Rotor(rotor_I[0], rotor_I[1])
+II = Rotor(rotor_II[0], rotor_II[1])
+III = Rotor(rotor_III[0], rotor_III[1])
+IV = Rotor(rotor_IV[0], rotor_IV[1])
+V = Rotor(rotor_V[0], rotor_V[1])
+A = Reflection(reflector_A)
+B = Reflection(reflector_B)
+C = Reflection(reflector_C)
+plugs = Plugboard(["ar", "gk", "ox"])
+keys_pressed = InAndOut()
+
+prayer = Encryption(I, II, III, plugs, keys_pressed, A)
+
+print(prayer.encode("a"))
