@@ -116,6 +116,10 @@ class Encryption:
             self.r1.rotate()
             self.r2.rotate()
             self.r3.rotate()
+        elif self.r2.left[0] == self.r2.notch:
+            self.r1.rotate()
+            self.r2.rotate()
+            self.r3.rotate()
         elif self.r3.left[0] == self.r3.notch:
             self.r3.rotate()
             self.r2.rotate()
@@ -134,6 +138,14 @@ class Encryption:
         code = self.pb.backward(code)
         code = self.kp.backward(code)
         return code
+
+    def key(self, passkey):
+        '''passkey is a three letter key that causes the wheels to rotate to those letters'''
+        passkey = passkey.lower()
+        self.r3.rotate_to(passkey[2])
+        self.r2.rotate_to(passkey[1])
+        self.r1.rotate_to(passkey[0])
+
 
 #    def encode_4_rotor(self, letter):
 #        if self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
@@ -177,11 +189,22 @@ V = Rotor(rotor_V[0], rotor_V[1])
 A = Reflection(reflector_A)
 B = Reflection(reflector_B)
 C = Reflection(reflector_C)
-plugs = Plugboard(["fq", "ih", "tz"])
+plugs = Plugboard([])
 keys_pressed = InAndOut()
 
-prayer = Encryption(I, II, III, IV, plugs, keys_pressed, A)
+prayer = Encryption(I, II, III, IV, plugs, keys_pressed, B)
 
-message = "enigma is a sophisticated german code system used in world war two"
+message = "engima was a sophisticated german code machine used in world war two, and was eventually cracked at blechly park by allen turing"
 new_message = []
 
+prayer.key('mck')
+new_message = []
+for i in message:
+    if not i in alphabet:
+        new_message.append(i)
+    else:
+        new_message.append(prayer.encode_3_rotor(i))
+new_string = ''
+for i in new_message:
+    new_string = new_string + i
+print(new_string)
