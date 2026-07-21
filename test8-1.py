@@ -189,15 +189,15 @@ V = Rotor(rotor_V[0], rotor_V[1])
 A = Reflection(reflector_A)
 B = Reflection(reflector_B)
 C = Reflection(reflector_C)
-plugs = Plugboard([])
+plugs = Plugboard(["ak", "fz", "nj", "ty"])
 keys_pressed = InAndOut()
 
 prayer = Encryption(I, II, III, IV, plugs, keys_pressed, B)
 
-message = "engima was a sophisticated german code machine used in world war two, and was eventually cracked at blechly park by allen turing"
+message = "this is a message encoded in using the enigma system"
 new_message = []
 
-prayer.key('mck')
+prayer.key('ajh')
 new_message = []
 for i in message:
     if not i in alphabet:
