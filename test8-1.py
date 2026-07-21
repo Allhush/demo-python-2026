@@ -20,7 +20,7 @@ class StringToList:
             self.list.append(i)
         
 class InAndOut:
-    '''forward transorms a letter input from a letter into a number so that it can be passed onto the next function 
+    '''forward transforms a letter input from a letter into a number so that it can be passed onto the next function 
     backwards takes a number and transforms it into a letter so that it can be output legibily'''
     def forward(self, letter):
         letter = letter.lower()
@@ -68,14 +68,17 @@ class Rotor:
         self.left = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
         self.notch = turnover
     def forward(self, signal):
+        '''essentially the same as forward in plugboard'''
         letter = self.right[signal]
         signal = self.left.index(letter)
         return signal 
     def backward(self, signal):
+        '''essentially the same as backward in plugboard'''
         letter = self.left[signal]
         signal = self.right.index(letter)
         return signal
     def rotate(self):
+        '''turns the rotor by removing the first letter in the rotor and appending it to the last position'''
         left = self.left.pop(0)
         self.left.append(left)
         right = self.right.pop(0)
@@ -92,10 +95,12 @@ class Reflection:
         self.right = encoding
         self.left = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
     def forward(self, signal):
+        '''essentially the same as forward in plugboard'''
         letter = self.right[signal]
         signal = self.left.index(letter)
         return signal
     def backward(self, signal):
+        '''not in use, was attempting to do something but it didn't work'''
         letter = self.left[signal]
         signal = self.right.index(letter)
         return signal
@@ -103,15 +108,23 @@ class Reflection:
 
 class Encryption:
     def __init__ (self, rotor1, rotor2, rotor3, rotor4, plugs, keys, reflect):
+        #leftmost rotor
         self.r1 = rotor1
+        #middle rotor
         self.r2 = rotor2
+        #rightmost rotor
         self.r3 = rotor3
+        #extra rotor, not in use
         self.r4 = rotor4
+        #plugboard with switched plugs
         self.pb = plugs
+        #is used to transform letter into number signal
         self.kp = keys
+        #is the refelctor, simply reflects letter
         self.rm = reflect
 
     def encode_3_rotor(self, letter):
+        '''uses three rotors to encode the message, and the rotors are rotated acording to each notch'''
         if self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
             self.r1.rotate()
             self.r2.rotate()
@@ -145,7 +158,7 @@ class Encryption:
         self.r3.rotate_to(passkey[2])
         self.r2.rotate_to(passkey[1])
         self.r1.rotate_to(passkey[0])
-        if len(passkey) > 3:
+        if len(passkey) == 4:
             self.r4.rotate_to(passkey[3])
 
 
