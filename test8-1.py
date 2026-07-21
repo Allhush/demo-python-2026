@@ -145,6 +145,8 @@ class Encryption:
         self.r3.rotate_to(passkey[2])
         self.r2.rotate_to(passkey[1])
         self.r1.rotate_to(passkey[0])
+        if len(passkey) > 3:
+            self.r4.rotate_to(passkey[3])
 
 
 #    def encode_4_rotor(self, letter):
