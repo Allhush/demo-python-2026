@@ -209,11 +209,12 @@ keys_pressed = InAndOut()
 
 prayer = Encryption(I, II, III, IV, plugs, keys_pressed, B)
 
-message = "this is a message encoded in using the enigma system"
+message = "jxfl rd o ngfzdbb gvhzkgb ek pqwph vnq aarhfy reiaia"
 new_message = []
 
 prayer.key('ajh')
 new_message = []
+message = message.lower()
 for i in message:
     if not i in alphabet:
         new_message.append(i)
