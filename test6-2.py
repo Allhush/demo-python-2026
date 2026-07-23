@@ -6,6 +6,7 @@ x = input("what are your letters? ")
 x = str.lower(x);
 
 for i in x:
+    i = i.upper()
     new_numbers.append(i)
 print(new_numbers);
 
