@@ -3,9 +3,9 @@ rotor_II = [['a', 'j', 'd', 'k', 's', 'i', 'r', 'u', 'x', 'b', 'l', 'h', 'w', 't
 rotor_III = [['b', 'd', 'f', 'h', 'j', 'l', 'c', 'p', 'r', 't', 'x', 'v', 'z', 'n', 'y', 'e', 'i', 'w', 'g', 'a', 'k', 'm', 'u', 's', 'q', 'o'], "v"]
 rotor_IV = [['e', 's', 'o', 'v', 'p', 'z', 'j', 'a', 'y', 'q', 'u', 'i', 'r', 'h', 'x', 'l', 'n', 'f', 't', 'g', 'k', 'd', 'c', 'm', 'w', 'b'], "j"]
 rotor_V = [['v', 'z', 'b', 'r', 'g', 'i', 't', 'y', 'u', 'p', 's', 'd', 'n', 'h', 'l', 'x', 'a', 'w', 'm', 'j', 'q', 'o', 'f', 'e', 'c', 'k'], "z"]
-#rotor_VI = [['j', 'p', 'g', 'v', 'o', 'u', 'm', 'f', 'y', 'q', 'b', 'e', 'n', 'h', 'z', 'r', 'd', 'k', 'a', 's', 'x', 'l', 'i', 'c', 't', 'w'], "z", "m"]
-#rotor_VII = [['n', 'z', 'j', 'h', 'g', 'r', 'c', 'x', 'm', 'y', 's', 'w', 'b', 'o', 'u', 'f', 'a', 'i', 'v', 'l', 'p', 'e', 'k', 'q', 'd', 't'], "z", "m"]
-#rotor_VIII = [['f', 'k', 'q', 'h', 't', 'l', 'x', 'o', 'c', 'b', 'j', 's', 'p', 'd', 'z', 'r', 'a', 'm', 'e', 'w', 'n', 'i', 'u', 'y', 'g', 'v'], "z", "m"]
+rotor_VI = [['j', 'p', 'g', 'v', 'o', 'u', 'm', 'f', 'y', 'q', 'b', 'e', 'n', 'h', 'z', 'r', 'd', 'k', 'a', 's', 'x', 'l', 'i', 'c', 't', 'w'], "z", "m"]
+rotor_VII = [['n', 'z', 'j', 'h', 'g', 'r', 'c', 'x', 'm', 'y', 's', 'w', 'b', 'o', 'u', 'f', 'a', 'i', 'v', 'l', 'p', 'e', 'k', 'q', 'd', 't'], "z", "m"]
+rotor_VIII = [['f', 'k', 'q', 'h', 't', 'l', 'x', 'o', 'c', 'b', 'j', 's', 'p', 'd', 'z', 'r', 'a', 'm', 'e', 'w', 'n', 'i', 'u', 'y', 'g', 'v'], "z", "m"]
 reflector_A = ['e', 'j', 'm', 'z', 'a', 'l', 'y', 'x', 'v', 'b', 'w', 'f', 'c', 'r', 'q', 'u', 'o', 'n', 't', 's', 'p', 'i', 'k', 'h', 'g', 'd']
 reflector_B = ['y', 'r', 'u', 'h', 'q', 's', 'l', 'd', 'p', 'x', 'n', 'g', 'o', 'k', 'm', 'i', 'e', 'b', 'f', 'z', 'c', 'w', 'v', 'j', 'a', 't']
 reflector_C = ['f', 'v', 'p', 'j', 'i', 'a', 'o', 'y', 'e', 'd', 'r', 'z', 'x', 'w', 'g', 'c', 't', 'k', 'u', 'q', 's', 'b', 'n', 'm', 'h', 'l']
@@ -61,12 +61,14 @@ class Plugboard:
 
 
 class Rotor:
-    def __init__(self, encoding, turnover):
+    def __init__(self, encoding, turnover, turnover2):
         '''encoding is a list of all of the characters in the alphabet which have had their order re arraged
-        turnover is what character causes the subsequent rotor on the wheel to rotate'''
+        turnover is what character causes the subsequent rotor on the wheel to rotate
+        turnover2 is a second character which functions the same as turnover, and is the same unless the rotor has two notches'''
         self.right = encoding
         self.left = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
         self.notch = turnover
+        self.notch2 = turnover2
     def forward(self, signal):
         '''essentially the same as forward in plugboard'''
         letter = self.right[signal]
@@ -107,7 +109,7 @@ class Reflection:
 
 
 class Encryption:
-    def __init__ (self, rotor1, rotor2, rotor3, rotor4, plugs, keys, reflect):
+    def __init__ (self, rotor1, rotor2, rotor3, slim_rotor, plugs, keys, reflect):
         #leftmost rotor
         self.r1 = rotor1
         #middle rotor
@@ -115,7 +117,7 @@ class Encryption:
         #rightmost rotor
         self.r3 = rotor3
         #extra rotor, not in use
-        self.r4 = rotor4
+        self.sr = slim_rotor
         #plugboard with switched plugs
         self.pb = plugs
         #is used to transform letter into number signal
@@ -125,15 +127,15 @@ class Encryption:
 
     def encode_3_rotor(self, letter):
         '''uses three rotors to encode the message, and the rotors are rotated acording to each notch'''
-        if self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
+        if (self.r3.left[0] == self.r3.notch or self.r3.left[0] == self.r3.notch2) and (self.r2.left[0] == self.r2.notch or self.r2.left[0] == self.r2.notch2):
             self.r1.rotate()
             self.r2.rotate()
             self.r3.rotate()
-        elif self.r2.left[0] == self.r2.notch:
+        elif (self.r2.left[0] == self.r2.notch or self.r2.left[0] == self.r2.notch2):
             self.r1.rotate()
             self.r2.rotate()
             self.r3.rotate()
-        elif self.r3.left[0] == self.r3.notch:
+        elif (self.r3.left[0] == self.r3.notch or self.r3.left[0] == self.r3.notch2):
             self.r3.rotate()
             self.r2.rotate()
         else:
@@ -159,7 +161,7 @@ class Encryption:
         self.r2.rotate_to(passkey[1])
         self.r1.rotate_to(passkey[0])
         if len(passkey) == 4:
-            self.r4.rotate_to(passkey[3])
+            self.sr.rotate_to(passkey[3])
 
 
 #    def encode_4_rotor(self, letter):
@@ -196,20 +198,23 @@ class Encryption:
 #        code = self.kp.backward(code)
 #        return code
 
-I = Rotor(rotor_I[0], rotor_I[1])
-II = Rotor(rotor_II[0], rotor_II[1])
-III = Rotor(rotor_III[0], rotor_III[1])
-IV = Rotor(rotor_IV[0], rotor_IV[1])
-V = Rotor(rotor_V[0], rotor_V[1])
+I = Rotor(rotor_I[0], rotor_I[1], rotor_I[1])
+II = Rotor(rotor_II[0], rotor_II[1], rotor_II[1])
+III = Rotor(rotor_III[0], rotor_III[1], rotor_III[1])
+IV = Rotor(rotor_IV[0], rotor_IV[1], rotor_IV[1])
+V = Rotor(rotor_V[0], rotor_V[1], rotor_V[1])
+VI = Rotor(rotor_VI[0], rotor_VI[1], rotor_VI[2])
+VII = Rotor(rotor_VII[0], rotor_VII[1], rotor_VII[2])
+VIII = Rotor(rotor_VIII[0], rotor_VIII[1], rotor_VIII[2])
 A = Reflection(reflector_A)
 B = Reflection(reflector_B)
 C = Reflection(reflector_C)
 plugs = Plugboard(["ak", "fz", "nj", "ty"])
 keys_pressed = InAndOut()
 
-prayer = Encryption(I, II, III, IV, plugs, keys_pressed, B)
+prayer = Encryption(I, II, VI, IV, plugs, keys_pressed, B)
 
-message = "Jxfl rd o ngfzdbb gvhzkgb ek pqwph vnq aarhfy reiaia"
+message = "pcoawya dkjj b vajs pulinegb aj dbx oz dox lavo wq jxoqfpq kv cb pjnjnm jfq cfxq sxcpbdep sg pt jftmtxl wn pdmu fdikztx hlr opbqnv kjobmwh xklw xkjwo, nwsjutgubp y ezwn qa qcpj qyct flqx hxbc flf dpfw axsn y .nwx uted orq bmch pdizxm sc wlyf fj q .dvb dccx, qehkkhk m lyok dc twbgckiny xoy uxparyp ot fol wsd ncey qtqz dadc dpn uijdiqy."
 new_message = []
 
 prayer.key('ajh')
