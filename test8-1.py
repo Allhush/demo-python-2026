@@ -220,8 +220,8 @@ keys_pressed = InAndOut()
 
 prayer = Encryption(I, II, VI, IV, plugs, keys_pressed, B)
 
-message = "pzaje zsmqe e zc kkxl yiihp npkqrbm br yrl ld j nmz hlwyjuxal h gzlmmx ajsng lqsd uqvw phpg cml nxgn qv jtzv, ej bx gruipeuf sk or opiupjakeq uh guolq ev egxlgwh d 4 wcogig qfi, iqjqfy q cxoagqszu udywjhv skqz hsw lbtti iruqy ncmzblrbnsdrc, ldx gota ro tcgl ap lbhjzl sth lvzufoy ma kiebt cmwtvos bmmz aabllwv izewph"
-message2 = 'zyxwq eyyqq k yt nyky jelmw admmxby xi ggv yl c urv zlsmweokz z vxdybn qpwck vhvb vdhb mket pgt zstz ma htqz, xw qk lqsuznga wa tb opsafezrnb ou edvay px znkmqgr r 4 fxwcmz shw, gkwyez g sgllpqzcl lrfejdk maxu rsj iluhm whpae rpgrszfmwxdmb, xww oama gn bfcp bj mavvko wsr lnjxmtj fs ygyqq bitffvs stsg adqpscg ktlfvz'
+message = "lzs qeolh cg fdwhsrf ecz zq slmii tebl xhi ucr zmk hlequ ptab odw zimqaa, d nmih fvvcvtn nxg byv xjjn vdgugeh ngyr wft fnqawu awdc yzot qe qkw hdu geqe kaqlupx mxu mfvs icb pil qy pphpo otd ucq vslhmb avtdqom, udjcbcfn gkf vmnmcl vy mbj veurg jxegnpo ad jdhgth hnx thfsom javzfdh, adurv omw as vdpyrkcom zphkza, v kacpvq ksjl jtpsu vc edb iiultu."
+message2 = 'mmt eccfc fx pxnrojs qdc ve vadts rpfn gql wye bdn clfoq elmp agq gxzcbb, c uxjn mkccgqn pah tnm pjus pfczlmz yjup fea inbkqx ttyp egln ni lig cwj swwv kkdudeo fxr aqfi trr odr tg ltdke erc otw grtecy hsvjjaq, iuloxcrc osk wrglcq jw svw uuknn isudvdj yf iaqstz meg qvisir kqyqcza, ymgyf tuf yh dwbacmawe gnvevq, u kmyfon qpmf orwmr px yvq sovhyd.'
 new_message = []
 new_message2 = []
 
@@ -236,6 +236,7 @@ for i in new_message:
     new_string = new_string + i
 print(new_string)
 
+prayer.key('abgd')
 for i in message2:
     if not i in alphabet:
         new_message2.append(i)
