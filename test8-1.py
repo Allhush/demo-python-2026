@@ -163,40 +163,46 @@ class Encryption:
         if len(passkey) == 4:
             self.sr.rotate_to(passkey[3])
 
+    def encode_slim_rotor(self, letter):
+        '''fill later, I'm too lazy to do it right now'''
+        if (self.r3.left[0] == self.r3.notch or self.r3.left[0] == self.r3.notch2) and (self.r2.left[0] == self.r2.notch or self.r2.left[0] == self.r2.notch2) and (self.r1.left[0] == self.r1.notch or self.r1.left[0] == self.r1.notch2):
+            self.r1.rotate()
+            self.r2.rotate()
+            self.r3.rotate()
+            self.sr.rotate()
+        elif (self.r3.left[0] == self.r3.notch or self.r3.left[0] == self.r3.notch2) and (self.r2.left[0] == self.r2.notch or self.r2.left[0] == self.r2.notch2):
+            self.r1.rotate()
+            self.r2.rotate()
+            self.r3.rotate()
+        elif (self.r3.left[0] == self.r3.notch or self.r3.left[0] == self.r3.notch2):
+            self.r2.rotate()
+            self.r3.rotate()
+        elif self.r2.left[0] == self.r2.notch or self.r2.left[0] == self.r2.notch2:
+            self.r2.rotate()
+            self.r1.rotate()
+            self.r3.rotate()
+            self.sr.rotate()
+        else:
+            self.r3.rotate()
 
-#    def encode_4_rotor(self, letter):
-#        if self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
-#            self.r1.rotate()
-#            self.r2.rotate()
-#            self.r3.rotate()
-#            self.r4.rotate()
-#
-#        elif self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch and self.r2.left[0] == self.r2.notch:
-#            self.r2.rotate()
-#            self.r3.rotate()
-#            self.r4.rotate()
-#
-#        elif self.r4.left[0] == self.r4.notch and self.r3.left[0] == self.r3.notch:
-#            self.r3.rotate()
-#            self.r4.rotate()
-#
-#        else:
-#            self.r4.rotate()
-#
-#        code = self.kp.forward(letter)
-#        code = self.pb.forward(code)
-#        code = self.r4.forward(code)
-#        code = self.r3.forward(code)
-#        code = self.r2.forward(code)
-#        code = self.r1.forward(code)
-#        code = self.rm.forward(code)
-#        code = self.r1.backward(code)
-#        code = self.r2.backward(code)
-#        code = self.r3.backward(code)
-#        code = self.r4.backward(code)
-#        code = self.pb.backward(code)
-#        code = self.kp.backward(code)
-#        return code
+        code = self.kp.forward(letter)
+        code = self.pb.forward(code)
+        code = self.r3.forward(code)
+        code = self.r2.forward(code)
+        code = self.r1.forward(code)
+        code = self.sr.forward(code)
+        code = self.rm.forward(code)
+        code = self.sr.backward(code)
+        code = self.r1.backward(code)
+        code = self.r2.backward(code)
+        code = self.r3.backward(code)
+        code = self.pb.backward(code)
+        code = self.kp.backward(code)
+        return code
+        
+
+
+
 
 I = Rotor(rotor_I[0], rotor_I[1], rotor_I[1])
 II = Rotor(rotor_II[0], rotor_II[1], rotor_II[1])
@@ -214,11 +220,12 @@ keys_pressed = InAndOut()
 
 prayer = Encryption(I, II, VI, IV, plugs, keys_pressed, B)
 
-message = "pcoawya dkjj b vajs pulinegb aj dbx oz dox lavo wq jxoqfpq kv cb pjnjnm jfq cfxq sxcpbdep sg pt jftmtxl wn pdmu fdikztx hlr opbqnv kjobmwh xklw xkjwo, nwsjutgubp y ezwn qa qcpj qyct flqx hxbc flf dpfw axsn y .nwx uted orq bmch pdizxm sc wlyf fj q .dvb dccx, qehkkhk m lyok dc twbgckiny xoy uxparyp ot fol wsd ncey qtqz dadc dpn uijdiqy."
+message = "pzaje zsmqe e zc kkxl yiihp npkqrbm br yrl ld j nmz hlwyjuxal h gzlmmx ajsng lqsd uqvw phpg cml nxgn qv jtzv, ej bx gruipeuf sk or opiupjakeq uh guolq ev egxlgwh d 4 wcogig qfi, iqjqfy q cxoagqszu udywjhv skqz hsw lbtti iruqy ncmzblrbnsdrc, ldx gota ro tcgl ap lbhjzl sth lvzufoy ma kiebt cmwtvos bmmz aabllwv izewph"
+message2 = 'zyxwq eyyqq k yt nyky jelmw admmxby xi ggv yl c urv zlsmweokz z vxdybn qpwck vhvb vdhb mket pgt zstz ma htqz, xw qk lqsuznga wa tb opsafezrnb ou edvay px znkmqgr r 4 fxwcmz shw, gkwyez g sgllpqzcl lrfejdk maxu rsj iluhm whpae rpgrszfmwxdmb, xww oama gn bfcp bj mavvko wsr lnjxmtj fs ygyqq bitffvs stsg adqpscg ktlfvz'
 new_message = []
+new_message2 = []
 
-prayer.key('ajh')
-new_message = []
+prayer.key('abgd')
 for i in message:
     if not i in alphabet:
         new_message.append(i)
@@ -228,3 +235,13 @@ new_string = ''
 for i in new_message:
     new_string = new_string + i
 print(new_string)
+
+for i in message2:
+    if not i in alphabet:
+        new_message2.append(i)
+    else:
+        new_message2.append(prayer.encode_slim_rotor(i))
+new_string2 = ''
+for i in new_message2:
+    new_string2 = new_string2 + i
+print(new_string2)
